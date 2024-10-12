@@ -387,8 +387,9 @@ def show_image(title, img, cmap='gray'):
 
 ########## Visualize
 
-def visualize_pupil_centers(csv_file, pattern):
+def visualize_pupil_centers(csv_file, pattern, xlim1, xlim2, ylim1, ylim2):
     """
+    CHANGED IMPLEMENTATION 
     Create a scatter plot of the detected pupil centers, find the top N most populated grid areas, 
     and calculate the mean center for each.
 
@@ -403,11 +404,14 @@ def visualize_pupil_centers(csv_file, pattern):
     df = pd.read_csv(os.path.join(os.getcwd(), csv_file))
 
     plt.figure(figsize=(8, 8))
-    plt.scatter(df['px'], df['py'], c='red', marker='o', label='Pupil Centers')
-    
-    plt.xlim(150, 60) 
-    plt.ylim(150, 60)  
-
+    plt.scatter(df['px'], df['py'], c='blue', marker='.', label='Pupil Centers')
+    plt.xticks(np.arange(60, 150, 10))
+    plt.xticks(np.arange(60, 150, 1), minor=True)
+    plt.yticks(np.arange(60, 150, 10))
+    plt.yticks(np.arange(60, 150, 1), minor=True)
+    plt.xlim(xlim1, xlim2) 
+    plt.ylim(ylim1, ylim2)  
+    plt.grid(which='both', ls="-")
     plt.xlabel('X Coordinate (px)')
     plt.ylabel('Y Coordinate (px)')
     plt.title('Scatter Plot of Pupil Centers')
